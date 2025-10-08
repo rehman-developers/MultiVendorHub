@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Ali Raza",
+        "email": "ali@example.com",
+        "age": 23,
+        "city": "Lahore"
+    },
+    {
+        "name": "Ahmed Khan",
+        "email": "ahmed@example.com",
+        "age": 25,
+        "city": "Karachi"
+    },
+    {
+        "name": "Sara Ali",
+        "email": "sara@example.com",
+        "age": 22,
+        "city": "Islamabad"
+    }
+]
