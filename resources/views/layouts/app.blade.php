@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title', 'MultiVendorHub')</title>
 
-    <!-- Tailwind CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
+     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Vite -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="bg-gray-100 font-sans antialiased">
@@ -36,14 +36,9 @@
                 @auth
                     <!-- Role-Based Dashboard -->
                     @if(auth()->user()->role == 0)
-                      <!-- <div class="relative"> -->
-                <!-- <button class="hover:text-gray-300">Dashboards ▼</button> -->
-                <!-- <div class="absolute hidden bg-white shadow-md"> Add JS to toggle -->
                     <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2">Admin Dashboard</a>
                     <a href="{{ route('seller.dashboard') }}" class="block px-4 py-2">Seller Dashboard (as admin)</a>
                     <a href="{{ route('buyer.dashboard') }}" class="block px-4 py-2">Buyer Dashboard (as admin)</a>
-                <!-- </div> -->
-            <!-- </div> -->
                     @elseif(auth()->user()->role == 1)
                         <a href="{{ route('admin.dashboard') }}" class="hover:text-gray-300">Admin Dashboard</a>
                     @elseif(auth()->user()->role == 2)
