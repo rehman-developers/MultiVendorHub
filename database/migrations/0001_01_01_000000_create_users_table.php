@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->integer('role')->default(3)->change();
+            $table->unsignedTinyInteger('role')->default(3)->comment('0=SuperAdmin, 1=Admin, 2=Seller, 3=Buyer');
             $table->enum('status', ['pending', 'active', 'blocked'])->default('active');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
