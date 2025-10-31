@@ -17,7 +17,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::patch('/users/{user}/status', [AdminUserController::class, 'updateStatus'])->name('users.status');
     Route::delete('/users/{user}', [AdminUserController::class, 'destroy'])->name('users.destroy');
     
-    // Admin Approval
+    // 
     Route::post('/approve/{user}', [AdminUserController::class, 'approve'])->name('approve');
     Route::post('/reject/{user}', [AdminUserController::class, 'reject'])->name('reject');
 
