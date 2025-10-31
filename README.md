@@ -1,253 +1,225 @@
-<<<<<<< HEAD
-# Laravel Practice Repository
+**`README.md`** – **GitHub ke liye MultiVendorHub Project**
 
-This repository contains practical examples and implementations of various Laravel concepts across four folders. It serves as a learning resource for Laravel beginners, covering CRUD operations using Query Builder and Eloquent ORM, authentication, middlewares, routes, Blade templates, models, and controllers. The code is structured in separate folders for clarity, with step-by-step explanations below.
+```markdown
+# MultiVendorHub - Sydney Signature Stores
 
-## Repository Structure
-- **project-db**: Demonstrates CRUD operations using Laravel's Query Builder. Also covers basic concepts like routes, Blade templates, models, and controllers.
-- **eloquent-orm**: Implements CRUD operations using Laravel's Eloquent ORM.
-- **middleware**: Explores how middlewares work in Laravel, including custom middleware creation and usage.
-- **authentication**: Covers user authentication, including registration, login, logout, and protected routes.
+![Laravel](https://img.shields.io/badge/Laravel-12.36.1-red)
+![PHP](https://img.shields.io/badge/PHP-8.2.0-orange)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-blue)
+![Vite](https://img.shields.io/badge/Vite-7.1.11-green)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-blue)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
-## Prerequisites
-Before setting up the project, ensure you have the following installed:
-- PHP 8.2 or higher
-- Composer (dependency manager for PHP)
-- MySQL or any other supported database (e.g., SQLite for development)
-- Node.js and NPM (for asset compilation, if using Laravel Mix or Vite)
-- Git (for cloning the repository)
+---
 
-## Setup Instructions (Step by Step)
-Follow these steps to set up and run the projects locally. These instructions assume you're using a local development environment like XAMPP, WAMP, or Laravel Sail.
+## Project Overview
 
-1. **Clone the Repository**:
-   ```
-   git clone https://github.com/rehman-developers/Laravel-Practice.git
-   cd Laravel-Practice
-   ```
+**MultiVendorHub** ek **modern multi-vendor e-commerce platform** hai jahan:
+- **Sellers** apni stores bana sakte hain
+- **Buyers** multiple sellers se products khareed sakte hain
+- **Admin** sab kuch manage karta hai
 
-2. **Install Dependencies**:
-   Each folder is a separate Laravel project. Navigate to each folder (e.g., `cd project-db`) and run:
-   ```
-   composer install
-   npm install
-   ```
+> **Live Demo:** [https://rehman.sydneysignaturelimos.com](https://rehman.sydneysignaturelimos.com)
 
-3. **Copy Environment File**:
-   In each project folder, copy the `.env.example` file to `.env`:
-   ```
-   cp .env.example .env
-   ```
+---
 
-4. **Generate Application Key**:
-   ```
-   php artisan key:generate
-   ```
+## Features
 
-5. **Configure Database**:
-   - Open `.env` and set your database credentials:
-     ```
-     DB_CONNECTION=mysql
-     DB_HOST=127.0.0.1
-     DB_PORT=3306
-     DB_DATABASE=your_database_name (e.g., laravel_practice)
-     DB_USERNAME=root
-     DB_PASSWORD=your_password
-     ```
-   - Create the database in MySQL (using phpMyAdmin or command line):
-     ```
-     mysql -u root -p
-     CREATE DATABASE your_database_name;
-     ```
+| Role | Features |
+|------|---------|
+| **SuperAdmin** | Full access, manage users, stores, orders |
+| **Admin** | manage users, stores, orders |
+| **Seller** | Create store, add products, manage orders |
+| **Buyer** | Browse, cart, checkout, track orders |
+| **Emails** | Order confirmation, status updates (Mailtrap) |
+| **Roles** |`0=SuperAdmin`, `1=Admin`, `2=Seller`, `3=Buyer` |
 
-6. **Run Migrations and Seeders**:
-   Run migrations to create tables and seed dummy data (if applicable):
-   ```
-   php artisan migrate:fresh --seed
-   ```
+---
 
-7. **Compile Assets**:
-   If the project uses CSS/JS (e.g., Tailwind or Bootstrap):
-   ```
-   npm run dev  # For development
-   # or
-   npm run build  # For production
-   ```
+## Tech Stack
 
-8. **Start the Development Server**:
-   ```
-   php artisan serve
-   ```
-   Open in browser: `http://127.0.0.1:8000`
+- **Backend:** Laravel 12 + PHP 8.2
+- **Frontend:** Blade + Tailwind CSS + Vite
+- **Database:** MySQL
+- **Queue:** Laravel Queue (database driver)
+- **Email:** Mailtrap (SMTP)
+- **Assets:** Vite + Laravel Vite Plugin
 
-9. **Test Routes**:
-   - For CRUD: Navigate to routes like `/stu` (list), `/stu/create` (add form), etc.
-   - For Authentication: `/register`, `/login`, `/dashboard`.
-   - Repeat setup for each folder as they are independent projects.
+---
 
-## Folder 1: project-db (Query Builder CRUD + Basic Concepts)
-This folder demonstrates CRUD (Create, Read, Update, Delete) operations using Laravel's Query Builder. It also introduces fundamental Laravel concepts like routes, Blade templates, models, and controllers.
+## Installation (Local / Development)
 
-### Step-by-Step Explanation
-1. **Routes (routes/web.php)**:
-   - Routes Laravel ke URL handlers hote hain. Yeh request ko controller method se link karte hain.
-   - Example: `Route::resource('/stu', StudentController::class);` automatic CRUD routes banata hai:
-     - GET `/stu` -> index (list)
-     - GET `/stu/create` -> create (add form)
-     - POST `/stu` -> store (save new record)
-     - GET `/stu/{id}` -> show (view single)
-     - GET `/stu/{id}/edit` -> edit (update form)
-     - PUT `/stu/{id}` -> update (save changes)
-     - DELETE `/stu/{id}` -> destroy (delete)
-   - Concept: Routes `web.php` mein define hote hain for web requests, aur `api.php` mein for APIs.
+### 1. Clone Repository
+```bash
+git clone https://github.com/rehman-developers/MultiVendorHub.git
+cd MultiVendorHub
+```
 
-2. **Blade Files (resources/views)**:
-   - Blade Laravel ka templating engine hai, jo PHP code ko HTML mein embed karta hai.
-   - Example: `welcome.blade.php` mein `@foreach ($students as $data)` data loop kar ke table show karta hai.
-   - Directives: `@if`, `@foreach`, `@extends('layout')` for inheritance, `@section('content')` for sections.
-   - Concept: Blade files `.blade.php` extension ke saath hoti hain, aur dynamic data render karti hain (e.g., {{ $variable }}).
+### 2. Install Dependencies
+```bash
+composer install
+npm install
+```
 
-3. **Models (app/Models/Student.php)**:
-   - Models database tables ko represent karte hain.
-   - Example: `class Student extends Model` `student` table se map karta hai. `$table = 'student';` custom table naam set karta hai.
-   - Concept: Models Eloquent ORM use karte hain for database operations (e.g., Student::all(), Student::create($data)).
+### 3. Environment Setup
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-4. **Controllers (app/Http/Controllers/StudentController.php)**:
-   - Controllers logic handle karte hain (e.g., data fetch, validation).
-   - Example: `index()` method `Student::all()` se data lata hai aur view ko pass karta hai: `return view('welcome', compact('students'));`.
-   - Concept: Resource controllers CRUD methods provide karte hain (index, create, store, show, edit, update, destroy).
+#### `.env` Configuration
+```env
+APP_NAME="Sydney Signature Stores"
+APP_ENV=local
+APP_URL=http://localhost:8000
+APP_DEBUG=true
 
-5. **CRUD with Query Builder**:
-   - Query Builder `DB::table('student')` use kar ke raw SQL-like queries banata hai without models.
-   - Example in controller:
-     - Read: `DB::table('student')->get();`
-     - Create: `DB::table('student')->insert($data);`
-     - Update: `DB::table('student')->where('id', $id)->update($data);`
-     - Delete: `DB::table('student')->where('id', $id)->delete();`
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=multivendorhub
+DB_USERNAME=root
+DB_PASSWORD=
 
-6. **Setup for this Folder**:
-   - Follow general setup above.
-   - Seed data: `php artisan db:seed` (if seeder defined).
-   - Test: Visit `/stu` for student list.
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=587
+MAIL_USERNAME=your4your5mailtrap6
+MAIL_PASSWORD=yourpassword
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=no-reply@multivendorhub.com
+MAIL_FROM_NAME="Sydney Signature Stores"
 
-## Folder 2: eloquent-orm (Eloquent ORM CRUD)
-This folder shows CRUD using Eloquent ORM, which is more object-oriented than Query Builder.
+QUEUE_CONNECTION=database
+```
 
-### Step-by-Step Explanation
-1. **Eloquent ORM Basics**:
-   - Eloquent models use kar ke database interact karta hai.
-   - Example: `Student::all()` sab records lata hai.
-   - Create: `Student::create($data);`
-   - Update: `$student->update($data);`
-   - Delete: `$student->delete();`
+### 4. Run Migrations & Seed
+```bash
+php artisan migrate:fresh
+php artisan db:seed
+```
 
-2. **Setup**:
-   - Same as general setup.
-   - Test routes like `/stu` for list, `/stu/{id}` for single view.
+> **Default Admin:**  
+> Email: `super@admin.com`
+> Password: `password123`
 
-## Folder 3: middleware (Middlewares Example)
-This folder demonstrates how middlewares work in Laravel.
+### 5. Build Assets
+```bash
+npm run build
+# or for dev
+npm run dev
+```
 
-### Step-by-Step Explanation
-1. **Middlewares Basics**:
-   - Middlewares request ko filter karte hain pehle controller tak jane se (e.g., auth check, logging).
-   - Example: `ValidUser` middleware `Auth::check()` se user authenticated hai ya nahi check karta hai.
+### 6. Start Server
+```bash
+php artisan serve
+```
 
-2. **Custom Middleware Creation**:
-   - Command: `php artisan make:middleware ValidUser`
-   - `handle` method mein logic likho (e.g., if authenticated, `$next($request)` call karo, warna redirect).
-   - Register in `Kernel.php`: `$middlewareAliases = ['valid.user' => ValidUser::class];`
+Visit: [http://localhost:8000](http://localhost:8000)
 
-3. **Usage**:
-   - Route mein: `->middleware('valid.user')`
-   - Example: Dashboard route par lagao taake sirf logged-in user access kare.
+---
 
-4. **Setup**:
-   - Same as general setup.
-   - Test: Login kar ke `/dashboard` access karo – middleware check karega.
+## Production Deployment (VPS)
 
-## Folder 4: authentication (Authentication System)
-This folder covers user authentication (register, login, logout).
+```bash
+# 1. Git pull
+git pull origin main
 
-### Step-by-Step Explanation
-1. **Authentication Basics**:
-   - `User` model authentication ke liye use hota hai (extends Authenticatable).
-   - Routes: `/register`, `/login`, `/logout`.
-   - Controller: `AuthController` mein `register` password hash karta hai (`Hash::make()`), `login` `Auth::attempt()` use kar ke verify karta hai.
+# 2. Install dependencies
+composer install --optimize-autoloader --no-dev
+npm ci
 
-2. **Setup**:
-   - `.env` mein DB credentials set karo.
-   - Migrations run karo for `auths` table.
-   - Test: Register karo, login karo, dashboard dekho.
+# 3. Build assets
+npm run build
+
+# 4. Laravel setup
+php artisan migrate --force
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+php artisan optimize:clear
+
+# 5. Queue worker (Supervisor)
+sudo supervisorctl restart laravel-worker
+```
+
+---
+
+## Queue Setup (Emails)
+
+```bash
+php artisan queue:table
+php artisan migrate
+```
+
+**Supervisor Config:** `/etc/supervisor/conf.d/laravel-worker.conf`
+
+```ini
+[program:laravel-worker]
+process_name=%(program_name)s
+command=php /home/sydneysi/rehman.sydneysignaturelimos.com/artisan queue:work --sleep=3 --tries=3
+directory=/home/sydneysi/rehman.sydneysignaturelimos.com
+autostart=true
+autorestart=true
+user=sydneysi
+stdout_logfile=/home/sydneysi/rehman.sydneysignaturelimos.com/storage/logs/worker.log
+```
+
+```bash
+sudo supervisorctl reread
+sudo supervisorctl update
+sudo supervisorctl start laravel-worker
+```
+
+---
+
+## Role-Based Access
+
+| Role | Value | Dashboard |
+|------|-------|-----------|
+| SuperAdmin | `0` | `/admin/dashboard` |
+| Admin | `1` | `/admin/dashboard` |
+| Seller | `2` | `/seller/dashboard` |
+| Buyer | `3` | `/buyer/dashboard` |
+
+---
+
+## Default Credentials
+
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | `super@admin.com` | `password123` |
+
+---
 
 ## Troubleshooting
-- **Common Errors**:
-  - Table not found: `php artisan migrate`
-  - Class not found: Composer dump-autoload (`composer dump-autoload`)
-  - Middleware not found: Kernel.php check karo
-- **Debug**: `.env` mein `APP_DEBUG=true` rakho for detailed errors.
 
-If you have questions or issues, open an issue on GitHub. Contributions welcome!
-=======
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+| Issue | Fix |
+|------|-----|
+| `Vite manifest not found` | `npm run build` |
+| `Column 'role' not found` | `php artisan migrate:fresh` |
+| `Too many emails per second` | Use `queue` + `later()` |
+| `Connection refused` | Use `MAIL_PORT=587` + `smtp.mailtrap.io` |
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
-
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+1. Fork repo
+2. Create branch: `git checkout -b feature/xyz`
+3. Commit: `git commit -m "Add feature"`
+4. Push: `git push origin feature/xyz`
+5. Open Pull Request
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+**Sydney Signature Stores** – *Shop Local. Sell Global.*
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
+```
 
-## License
+**Done!** Ab repo professional lagega.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
->>>>>>> d64f76d (Learn About MiddleWare and Queue In Laravel)
+Chahte ho **screenshots** ya **demo video** bhi add karun?
