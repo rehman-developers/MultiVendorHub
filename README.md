@@ -1,6 +1,3 @@
-**`README.md`** – **GitHub ke liye MultiVendorHub Project**
-
-```markdown
 # MultiVendorHub - Sydney Signature Stores
 
 ![Laravel](https://img.shields.io/badge/Laravel-12.36.1-red)
@@ -14,16 +11,17 @@
 
 ## Project Overview
 
-**MultiVendorHub** ek **modern multi-vendor e-commerce platform** hai jahan:
-- **Sellers** apni stores bana sakte hain
-- **Buyers** multiple sellers se products khareed sakte hain
-- **Admin** sab kuch manage karta hai
+**MultiVendorHub** is a modern **multi-vendor e-commerce platform** where:
+
+- **Sellers** can create their own stores
+- **Buyers** can shop from multiple sellers in one place
+- **Admin** has full control over users, stores, and orders
 
 > **Live Demo:** [https://rehman.sydneysignaturelimos.com](https://rehman.sydneysignaturelimos.com)
 
 ---
 
-## Features
+## Key Features
 
 | Role | Features |
 |------|---------|
@@ -39,36 +37,34 @@
 ## Tech Stack
 
 - **Backend:** Laravel 12 + PHP 8.2
-- **Frontend:** Blade + Tailwind CSS + Vite
+- **Frontend:** Blade Templates + Tailwind CSS + Vite
 - **Database:** MySQL
 - **Queue:** Laravel Queue (database driver)
 - **Email:** Mailtrap (SMTP)
-- **Assets:** Vite + Laravel Vite Plugin
+- **Asset Build:** Vite + Laravel Vite Plugin
 
 ---
 
-## Installation (Local / Development)
+## Installation (Local Development)
 
-### 1. Clone Repository
+### 1. Clone the Repository
 ```bash
 git clone https://github.com/rehman-developers/MultiVendorHub.git
 cd MultiVendorHub
-```
 
-### 2. Install Dependencies
-```bash
+
+2. Install Dependencies
+
 composer install
 npm install
-```
 
-### 3. Environment Setup
-```bash
+3. Environment Setup
+
 cp .env.example .env
 php artisan key:generate
-```
 
-#### `.env` Configuration
-```env
+Configure .env
+
 APP_NAME="Sydney Signature Stores"
 APP_ENV=local
 APP_URL=http://localhost:8000
@@ -84,77 +80,55 @@ DB_PASSWORD=
 MAIL_MAILER=smtp
 MAIL_HOST=smtp.mailtrap.io
 MAIL_PORT=587
-MAIL_USERNAME=your4your5mailtrap6
-MAIL_PASSWORD=yourpassword
+MAIL_USERNAME=your_mailtrap_username
+MAIL_PASSWORD=your_mailtrap_password
 MAIL_ENCRYPTION=tls
 MAIL_FROM_ADDRESS=no-reply@multivendorhub.com
 MAIL_FROM_NAME="Sydney Signature Stores"
 
 QUEUE_CONNECTION=database
-```
 
-### 4. Run Migrations & Seed
-```bash
+4. Run Migrations & Seed Data
+
 php artisan migrate:fresh
 php artisan db:seed
-```
 
-> **Default Admin:**  
-> Email: `super@admin.com`
-> Password: `password123`
-
-### 5. Build Assets
-```bash
+5. Build Frontend Assets
 npm run build
-# or for dev
-npm run dev
-```
+# For development (hot reload):
+# npm run dev
 
-### 6. Start Server
-```bash
 php artisan serve
-```
+Visit: http://localhost:8000
 
-Visit: [http://localhost:8000](http://localhost:8000)
+Production Deployment (VPS)
 
----
-
-## Production Deployment (VPS)
-
-```bash
-# 1. Git pull
+# 1. Pull latest code
 git pull origin main
 
-# 2. Install dependencies
+# 2. Install PHP & JS dependencies
 composer install --optimize-autoloader --no-dev
 npm ci
 
 # 3. Build assets
 npm run build
 
-# 4. Laravel setup
+# 4. Run migrations
 php artisan migrate --force
+
+# 5. Cache configuration
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 php artisan optimize:clear
 
-# 5. Queue worker (Supervisor)
-sudo supervisorctl restart laravel-worker
-```
 
----
-
-## Queue Setup (Emails)
-
-```bash
+Queue Setup (For Delayed Emails)
 php artisan queue:table
 php artisan migrate
-```
 
-**Supervisor Config:** `/etc/supervisor/conf.d/laravel-worker.conf`
-
-```ini
+Supervisor Configuration
+# /etc/supervisor/conf.d/laravel-worker.conf
 [program:laravel-worker]
 process_name=%(program_name)s
 command=php /home/sydneysi/rehman.sydneysignaturelimos.com/artisan queue:work --sleep=3 --tries=3
@@ -162,14 +136,47 @@ directory=/home/sydneysi/rehman.sydneysignaturelimos.com
 autostart=true
 autorestart=true
 user=sydneysi
+redirect_stderr=true
 stdout_logfile=/home/sydneysi/rehman.sydneysignaturelimos.com/storage/logs/worker.log
-```
 
-```bash
+
 sudo supervisorctl reread
 sudo supervisorctl update
 sudo supervisorctl start laravel-worker
+
+Role-Based Routing
+
+Role,Value,Dashboard Route
+Admin,0,/admin/dashboard
+Seller,1,/seller/dashboard
+Buyer,2,/buyer/dashboard
+
+Common Issues & Fixes
+
+Issue,Solution
+Vite manifest not found,Run npm run build
+Column 'role' not found,Run php artisan migrate:fresh
+Too many emails per second,Use queue + later() in mail sending
+SMTP Connection refused,Use MAIL_PORT=587 + smtp.mailtrap.io
+Page expired on logout,Ensure @csrf is in logout form
+
+Contributing
+Fork the repository
+Create a feature branch: git checkout -b feature/name
+Commit changes: git commit -m "Add feature"
+Push to branch: git push origin feature/name
+Open a Pull Request
+
+> **Default Admin:**  
+> Email: `super@admin.com`
+> Password: `password123`
+
+###  Start Server
+```bash
+php artisan serve
 ```
+
+Visit: [http://localhost:8000](http://localhost:8000)
 
 ---
 
@@ -183,43 +190,3 @@ sudo supervisorctl start laravel-worker
 | Buyer | `3` | `/buyer/dashboard` |
 
 ---
-
-## Default Credentials
-
-| Role | Email | Password |
-|------|-------|----------|
-| Admin | `super@admin.com` | `password123` |
-
----
-
-## Troubleshooting
-
-| Issue | Fix |
-|------|-----|
-| `Vite manifest not found` | `npm run build` |
-| `Column 'role' not found` | `php artisan migrate:fresh` |
-| `Too many emails per second` | Use `queue` + `later()` |
-| `Connection refused` | Use `MAIL_PORT=587` + `smtp.mailtrap.io` |
-
----
-
-## Contributing
-
-1. Fork repo
-2. Create branch: `git checkout -b feature/xyz`
-3. Commit: `git commit -m "Add feature"`
-4. Push: `git push origin feature/xyz`
-5. Open Pull Request
-
----
-
----
-
-**Sydney Signature Stores** – *Shop Local. Sell Global.*
-
----
-```
-
-**Done!** Ab repo professional lagega.
-
-Chahte ho **screenshots** ya **demo video** bhi add karun?
